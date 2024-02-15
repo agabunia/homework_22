@@ -1,17 +1,16 @@
-package com.example.homework_22.presentation.screen
+package com.example.homework_22.presentation.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.homework_22.databinding.StoryLayoutBinding
-import com.example.homework_22.presentation.module.Story
+import com.example.homework_22.presentation.extension.loadImage
+import com.example.homework_22.presentation.model.Story
 
-class StoryViewPagerAdapter :
-    ListAdapter<Story, StoryViewPagerAdapter.StoryViewHolder>(StoryDiffUtil()) {
+class StoryRecyclerViewAdapter :
+    ListAdapter<Story, StoryRecyclerViewAdapter.StoryViewHolder>(StoryDiffUtil()) {
 
     class StoryDiffUtil : DiffUtil.ItemCallback<Story>() {
         override fun areItemsTheSame(oldItem: Story, newItem: Story): Boolean {
@@ -35,15 +34,13 @@ class StoryViewPagerAdapter :
     inner class StoryViewHolder(private val binding: StoryLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         private lateinit var story: Story
-        private lateinit var context: Context
 
         fun bind() {
             story = currentList[adapterPosition]
-            context = binding.root.context
 
             binding.apply {
                 tvTitle.text = story.title
-                Glide.with(context).load(story.cover).into(sivImage)
+                sivImage.loadImage(story.cover)
             }
         }
     }

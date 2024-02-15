@@ -1,4 +1,4 @@
-package com.example.homework_22.presentation.module
+package com.example.homework_22.presentation.model
 
 data class Story(
     val id: Int,

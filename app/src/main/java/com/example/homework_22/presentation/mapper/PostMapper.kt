@@ -1,12 +1,13 @@
 package com.example.homework_22.presentation.mapper
 
 import com.example.homework_22.domain.model.GetPost
-import com.example.homework_22.presentation.module.Post
+import com.example.homework_22.presentation.extension.getDateTime
+import com.example.homework_22.presentation.model.Post
 
 fun GetPost.toPresenter(): Post {
     return Post(
         id = id,
-        images = images,
+        images = images ?: emptyList<String>(),
         title = title,
         comments = comments,
         likes = likes,
@@ -19,7 +20,7 @@ fun GetPost.GetOwnerInfo.toPresenter(): Post.OwnerInfo {
     return Post.OwnerInfo(
         firstName = firstName,
         lastName = lastName,
-        profile = profile,
-        postDate = postDate
+        profile = profile ?: "" ,
+        postDate = postDate.toLong().getDateTime()
     )
 }

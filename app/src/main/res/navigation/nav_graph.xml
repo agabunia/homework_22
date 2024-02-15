@@ -7,7 +7,12 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.homework_22.presentation.screen.MainFragment"
+        android:name="com.example.homework_22.presentation.screen.main.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" />
+    <fragment
+        android:id="@+id/detailedFragment"
+        android:name="com.example.homework_22.presentation.screen.detailed.DetailedFragment"
+        android:label="fragment_detailed"
+        tools:layout="@layout/fragment_detailed" />
 </navigation>

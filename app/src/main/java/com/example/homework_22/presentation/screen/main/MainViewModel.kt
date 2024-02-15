@@ -1,4 +1,4 @@
-package com.example.homework_22.presentation.screen
+package com.example.homework_22.presentation.screen.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

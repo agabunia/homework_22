@@ -1,4 +1,4 @@
-package com.example.homework_22.presentation.screen
+package com.example.homework_22.presentation.screen.main
 
 import android.util.Log.d
 import android.view.View
@@ -8,25 +8,23 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.viewpager2.widget.CompositePageTransformer
-import androidx.viewpager2.widget.MarginPageTransformer
-import androidx.viewpager2.widget.ViewPager2
 import com.example.homework_22.databinding.FragmentMainBinding
+import com.example.homework_22.presentation.adapter.PostRecyclerAdapter
+import com.example.homework_22.presentation.adapter.StoryRecyclerViewAdapter
 import com.example.homework_22.presentation.base.BaseFragment
 import com.example.homework_22.presentation.event.MainEvent
 import com.example.homework_22.presentation.state.MainState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import kotlin.math.abs
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::inflate) {
     private val viewModel: MainViewModel by viewModels()
-    private lateinit var storyViewPagerAdapter: StoryViewPagerAdapter
+    private lateinit var storyViewPagerAdapter: StoryRecyclerViewAdapter
     private lateinit var postRecyclerAdapter: PostRecyclerAdapter
 
     override fun bind() {
-        setViewPagerAdapter()
+        setStoryRecyclerAdapter()
         setRecyclerAdapter()
     }
 
@@ -66,19 +64,13 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
         Toast.makeText(requireContext(), message, Toast.LENGTH_LONG).show()
     }
 
-    private fun setViewPagerAdapter() {
-        storyViewPagerAdapter = StoryViewPagerAdapter()
-        val transformer = CompositePageTransformer()
-        transformer.addTransformer(MarginPageTransformer(10))
-        transformer.addTransformer { page, position ->
-            val r = 1 - abs(position)
-            page.scaleY = 0.85f + r * 0.15f
-        }
+    private fun setStoryRecyclerAdapter() {
+        storyViewPagerAdapter = StoryRecyclerViewAdapter()
         binding.apply {
-            viewPager.adapter = storyViewPagerAdapter
-            viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-            viewPager.offscreenPageLimit = 3
-            viewPager.setPageTransformer(transformer)
+            rvStory.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            rvStory.setHasFixedSize(true)
+            rvStory.adapter = storyViewPagerAdapter
         }
         viewModel.onEvent(MainEvent.FetchStories)
     }
@@ -86,9 +78,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(FragmentMainBinding::infl
     private fun setRecyclerAdapter() {
         postRecyclerAdapter = PostRecyclerAdapter()
         binding.apply {
-            recyclerAdapter.layoutManager = LinearLayoutManager(requireContext())
-            recyclerAdapter.setHasFixedSize(true)
-            recyclerAdapter.adapter = postRecyclerAdapter
+            rvPost.layoutManager = LinearLayoutManager(requireContext())
+            rvPost.setHasFixedSize(true)
+            rvPost.adapter = postRecyclerAdapter
         }
         viewModel.onEvent(MainEvent.FetchPosts)
     }

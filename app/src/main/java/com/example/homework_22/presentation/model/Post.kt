@@ -1,8 +1,8 @@
-package com.example.homework_22.presentation.module
+package com.example.homework_22.presentation.model
 
 data class Post(
     val id: Int,
-    val images: List<String>?,
+    val images: List<String>,
     val title: String,
     val comments: Int,
     val likes: Int,
@@ -12,7 +12,7 @@ data class Post(
     data class OwnerInfo(
         val firstName: String,
         val lastName: String,
-        val profile: String?,
-        val postDate: Int
+        val profile: String,
+        val postDate: String
     )
 }
