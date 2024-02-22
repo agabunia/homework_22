@@ -9,8 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.homework_22.databinding.FragmentMainBinding
-import com.example.homework_22.presentation.adapter.PostRecyclerAdapter
-import com.example.homework_22.presentation.adapter.StoryRecyclerViewAdapter
+import com.example.homework_22.presentation.adapter.post.PostRecyclerAdapter
+import com.example.homework_22.presentation.adapter.story.StoryRecyclerViewAdapter
 import com.example.homework_22.presentation.base.BaseFragment
 import com.example.homework_22.presentation.event.MainEvent
 import com.example.homework_22.presentation.state.MainState

@@ -1,4 +1,4 @@
-package com.example.homework_22.presentation.adapter
+package com.example.homework_22.presentation.adapter.story
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

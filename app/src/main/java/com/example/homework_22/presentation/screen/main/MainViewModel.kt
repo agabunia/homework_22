@@ -3,12 +3,13 @@ package com.example.homework_22.presentation.screen.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.homework_22.data.common.Resource
-import com.example.homework_22.domain.repository.PostRepository
-import com.example.homework_22.domain.repository.StoryRepository
+import com.example.homework_22.domain.usecase.post.GetPostUseCase
+import com.example.homework_22.domain.usecase.story.GetStoryUseCase
 import com.example.homework_22.presentation.event.MainEvent
 import com.example.homework_22.presentation.mapper.toPresenter
 import com.example.homework_22.presentation.state.MainState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -18,9 +19,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val storyRepository: StoryRepository,
-    private val postRepository: PostRepository
-
+    private val getStoryUseCase: GetStoryUseCase,
+    private val getPostUseCase: GetPostUseCase
 ) : ViewModel() {
 
     private val _mainState = MutableStateFlow(MainState())
@@ -36,7 +36,7 @@ class MainViewModel @Inject constructor(
 
     private fun fetchStories() {
         viewModelScope.launch {
-            storyRepository.getStory().collect {
+            getStoryUseCase().collect {
                 when (it) {
                     is Resource.Success -> {
                         _mainState.update { currentState ->
@@ -53,6 +53,7 @@ class MainViewModel @Inject constructor(
                             currentState.copy(isLoading = it.loading)
                         }
                     }
+
                 }
             }
         }
@@ -60,7 +61,7 @@ class MainViewModel @Inject constructor(
 
     private fun fetchPosts() {
         viewModelScope.launch {
-            postRepository.getPost().collect {
+            getPostUseCase().collect {
                 when (it) {
                     is Resource.Success -> {
                         _mainState.update { currentState ->
@@ -77,6 +78,7 @@ class MainViewModel @Inject constructor(
                             currentState.copy(isLoading = it.loading)
                         }
                     }
+
                 }
             }
         }

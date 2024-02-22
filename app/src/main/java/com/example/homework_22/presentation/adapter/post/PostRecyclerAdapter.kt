@@ -1,15 +1,13 @@
-package com.example.homework_22.presentation.adapter
+package com.example.homework_22.presentation.adapter.post
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.example.homework_22.databinding.PostLayoutBinding
-import com.example.homework_22.presentation.adapter.ImagesRecyclerViewAdapter
+import com.example.homework_22.presentation.adapter.custom_layout_manager.CustomLayoutManager
 import com.example.homework_22.presentation.extension.loadImage
 import com.example.homework_22.presentation.model.Post
 
@@ -55,7 +53,9 @@ class PostRecyclerAdapter : ListAdapter<Post, PostRecyclerAdapter.PostViewHolder
 
                 imagesRecyclerViewAdapter = ImagesRecyclerViewAdapter(post.images)
                 rvImages.adapter = imagesRecyclerViewAdapter
-                rvImages.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                rvImages.layoutManager = CustomLayoutManager()
+                rvImages.requestLayout()
+//                rvImages.layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
 
             }
         }

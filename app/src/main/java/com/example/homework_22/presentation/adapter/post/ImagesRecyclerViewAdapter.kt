@@ -1,4 +1,4 @@
-package com.example.homework_22.presentation.adapter
+package com.example.homework_22.presentation.adapter.post
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -22,13 +22,11 @@ class ImagesRecyclerViewAdapter(private val images: List<String>) :
         return images.size
     }
 
-
     inner class ImageViewHolder(private val binding: ImageLayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(image: String) {
             binding.sivPostImage.loadImage(image)
         }
     }
-
 
 }
